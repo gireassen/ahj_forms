@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/x0sa30knl6b8ciy1?svg=true)](https://ci.appveyor.com/project/gireassen/ahj-forms)
