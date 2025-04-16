@@ -1,0 +1,33 @@
+image: Ubuntu2204  # образ для сборки
+
+stack: node 18  # окружение
+
+branches:
+  only:
+    - master  # ветка git
+
+cache: 
+  - node_modules  # кеширование
+  - yarn.lock
+
+environment:
+  PUPPETEER_SKIP_DOWNLOAD: false  # Puppeteer требует корректного установки Chrome
+
+install:
+  - yarn install  # установка зависимостей с помощью Yarn
+
+build: off  # отключаем встроенную в appveyor систему сборки
+
+build_script:
+  - yarn build  # команда сборки
+
+test_script:
+  # скрипт тестирования с запуском сервера и выполнением тестов Puppeteer в headless-режиме
+  - yarn lint && yarn test
+
+deploy_script:  # скрипт развёртывания
+  - git config --global credential.helper store
+  - git config --global user.name AppVeyor
+  - git config --global user.email ci@appveyor.com
+  - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
+  - npx push-dir --dir=dist --branch=gh-pages --force --verbose
