@@ -1,0 +1,7 @@
+a { text-decoration: inherit; color: inherit; }
+
+body, h1, h3 { margin: 0; }
+
+button { font-family: inherit; }
+
+*, ::after, ::before { box-sizing: border-box; }

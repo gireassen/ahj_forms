@@ -1,23 +1,12 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
+import globals from 'globals';
+import pluginJest from 'eslint-plugin-jest';
+import pluginJs from '@eslint/js';
+import pluginStylistic from '@stylistic/eslint-plugin';
 
 export default [
-  {
-    files: ["**/*.js"],
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        ...globals.jest, // Поддержка глобальных переменных Jest
-      },
-      parserOptions: {
-        ecmaVersion: 2022,
-        sourceType: 'module', // Разрешение на использование import/export
-      },
-    },
-    rules: {
-      "no-unused-vars": "warn",        // Установим предупреждение для неиспользуемых переменных
-      "no-prototype-builtins": "off"   // Отключаем правило для hasOwnProperty
-    },
-  },
+  { languageOptions: { globals: { ...globals.browser, ...globals.jest, ...globals.node } } },
+  pluginStylistic.configs.customize({ indent: 2, quotes: 'single', semi: true, jsx: true }),
   pluginJs.configs.recommended,
+  { ignores: ['dist/*'] },
+  { files: ['**/*.test.js'], ...pluginJest.configs['flat/recommended'] },
 ];

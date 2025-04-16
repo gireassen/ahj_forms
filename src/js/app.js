@@ -1,3 +1,5 @@
-import Button from './button.js';
+import Popover from './popover';
 
-const button = new Button();
+window.addEventListener('DOMContentLoaded', () => {
+  new Popover();
+});
